@@ -6,10 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Predict image app - Deep Learning - TFJS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        #selected-image {
+            width: 224px;
+            height: 224px;
+            max-width: 224px;
+            max-height: 224px;
+        }
+    </style>
 </head>
 <body>
     <main>
         <div class="container mt-5">
+            <div class="row">
+                <div class="col-12">
+                    <div class="progress progress-bar progress-bar-stripped progress-bar-animated mb-2">Loading model</div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-6">
                     <input type="file" id="image-selector" class="form-control border-0">
@@ -29,14 +42,14 @@
             <div class="row">
                 <div class="col-12">
                     <h2 class="ml-3">Image</h2>
-                    <img src="" alt="" id="selected-img" class="ml-3">
+                    <img src="" alt="" id="selected-image" class="ml-3">
                 </div>
             </div>
         </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
     <script src="imagenet_classes.js"></script>
     <script src="predict.js"></script>
 </body>
