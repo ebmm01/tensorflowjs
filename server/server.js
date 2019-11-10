@@ -6,7 +6,8 @@ app.use(function(req, res, next) {
     next();
 })
 
-app.use(express.static("../static"));
+var directory = require('serve-index');
+app.use(directory(__dirname + '/static'));
 
 app.listen(8080, function() {
     console.log("Serving static on :8080");
