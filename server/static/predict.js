@@ -12,13 +12,13 @@ $("#image-selector").change(function() {
 
 let model;
 (async function() {
-    model = await tf.loadLayersModel('http://localhost:8080/tfjs-models/VGG16/model.json');
+    model = await tf.loadModel('http://localhost:8080/tfjs-models/VGG16/model.json');
     $(".progress-bar").hide();
 })();
 
 $("#predict-button").click(async function() {
     let image = $("#selected-image").get(0);
-    let tensor = tf.browser.fromPixels(image)
+    let tensor = tf.fromPixels(image)
         .resizeNearestNeighbor([224,224])
         .toFloat()
         .expandDims();
