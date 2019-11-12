@@ -25,36 +25,44 @@ $("#predict-button").click(async function() {
     //subtraindo o valor médio de rgb calculado no conjunto de treinamento (imageNet)
 
     // contem o valor médio de rgb para o imageNet
-    let meanImageNetRGB = {
-        red: 123.68,
-        green: 116.779,
-        blue: 103.939
-    };
+    // let meanImageNetRGB = {
+    //     red: 123.68,
+    //     green: 116.779,
+    //     blue: 103.939
+    // };
 
-    let indices = [
-        tf.tensor1d([0], "int32"),
-        tf.tensor1d([1], "int32"),
-        tf.tensor1d([2], "int32"),
-    ];
+    // let indices = [
+    //     tf.tensor1d([0], "int32"),
+    //     tf.tensor1d([1], "int32"),
+    //     tf.tensor1d([2], "int32"),
+    // ];
 
-    // Centering values for rgb
-    let centeredRGB = {
-        red: tf.gather(tensor, indices[0],2)
-            .sub(tf.scalar(meanImageNetRGB.red))
-            .reshape([50176]),
-        green: tf.gather(tensor, indices[1],2)
-            .sub(tf.scalar(meanImageNetRGB.green))
-            .reshape([50176]),
-        blue: tf.gather(tensor, indices[2],2)
-            .sub(tf.scalar(meanImageNetRGB.blue))
-            .reshape([50176]),
+    // // Centering values for rgb
+    // let centeredRGB = {
+    //     red: tf.gather(tensor, indices[0],2)
+    //         .sub(tf.scalar(meanImageNetRGB.red))
+    //         .reshape([50176]),
+    //     green: tf.gather(tensor, indices[1],2)
+    //         .sub(tf.scalar(meanImageNetRGB.green))
+    //         .reshape([50176]),
+    //     blue: tf.gather(tensor, indices[2],2)
+    //         .sub(tf.scalar(meanImageNetRGB.blue))
+    //         .reshape([50176]),
 
-    }
+    // }
 
-    let processedTensor = tf.stack([centeredRGB.red, centeredRGB.green, centeredRGB.blue],1)
-        .reshape([224,224,3])
+    // let processedTensor = tf.stack([centeredRGB.red, centeredRGB.green, centeredRGB.blue],1)
+    //     .reshape([224,224,3])
+    //     .reverse(2)
+    //     .expandDims();
+
+    // Broadcasting
+    let meanImageNetRGB = tf.tensor1d([123.68, 116.779, 103.939]);
+
+    let processedTensor = tensor.sub(meanImageNetRGB)
         .reverse(2)
         .expandDims();
+
 
     let predictions = await model.predict(processedTensor).data();
     let top5 = Array.from(predictions)

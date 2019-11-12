@@ -8,3 +8,4 @@ __toFloat__ => Converte o tipo para float32
 
 __expandDims__ => Expande a dimensão do tensor
 
+### Broadcasting
